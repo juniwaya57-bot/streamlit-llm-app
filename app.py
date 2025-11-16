@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
-
 load_dotenv()
 
 import streamlit as st
 import os
 from langchain_openai import ChatOpenAI
-from langchain.schema import SystemMessage, HumanMessage
+from langchain_core.messages import SystemMessage, HumanMessage
 
 def call_llm(user_text: str, expert_type: str) -> str:
     if expert_type == "健康アドバイザー":
@@ -22,7 +21,7 @@ def call_llm(user_text: str, expert_type: str) -> str:
         HumanMessage(content=user_text),
     ]
 
-    result = llm(messages)
+    result = llm.invoke(messages)
     return result.content
 
 st.title("LLMアプリ（LangChain × Streamlit）")
